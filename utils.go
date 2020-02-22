@@ -6,8 +6,9 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"
-  "fmt"
+	"fmt"
 	"io/ioutil"
+	"net/http"
 )
 
 // GetSecurityCredential generates a security credential
@@ -17,12 +18,18 @@ func (s Service) GetSecurityCredential(initiatorPassword string) (string, error)
 
 	var fileName string
 	if s.Env == PRODUCTION {
-		fileName = "certs/live.cer"
+		fileName = "https://developer.safaricom.co.ke/sites/default/files/cert/cert_prod/cert.cer"
 	} else {
-		fileName = "certs/sandbox.cer"
+		fileName = "https://developer.safaricom.co.ke/sites/default/files/cert/cert_sandbox/cert.cer"
 	}
 
-	pubKey, err := ioutil.ReadFile(fileName)
+	resp, err := http.Get(fileName)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	pubKey, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}

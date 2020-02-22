@@ -65,7 +65,7 @@ type Express struct {
 var defaultTransactionType = "CustomerPayBillOnline"
 
 // NewExpress creates an express request object. Does the password generation and timestamp
-func NewExpress(shortCode, amount, phoneNumber, callbackURL, ref, desc, passkey string) *Express {
+func NewExpress(shortCode string, amount int, phoneNumber, callbackURL, ref, desc, passkey string) *Express {
 	timestamp := time.Now().Format("20060102030405")
 	password := GeneratePassword(shortCode, passkey, timestamp)
 
