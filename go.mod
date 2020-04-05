@@ -1,3 +1,4 @@
-module github.com/Pancakem/mpesa-api-go
+module github.com/AndroidStudyOpenSource/mpesa-api-go
+
 
 go 1.13
