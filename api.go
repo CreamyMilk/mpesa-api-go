@@ -189,7 +189,7 @@ func (s Service) B2BRequest(b2b B2B) (string, error) {
 	return s.newReq(url, body, headers)
 }
 
-// Reversal requests a reversal?
+// Reversal requests a reversal
 func (s Service) Reversal(reversal Reversal) (string, error) {
 	body, err := json.Marshal(reversal)
 	if err != nil {
@@ -206,7 +206,7 @@ func (s Service) Reversal(reversal Reversal) (string, error) {
 	headers["Authorization"] = "Bearer " + auth
 	headers["cache-control"] = "no-cache"
 
-	url := s.baseURL() + "safaricom/reversal/v1/request" //TODO :: CONFIRM THIS URL/ENDPOINT???
+	url := s.baseURL() + "mpesa/reversal/v1/request"
 	return s.newReq(url, body, headers)
 }
 
